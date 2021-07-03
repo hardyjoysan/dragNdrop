@@ -1,45 +1,20 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: 'A',
-    pv: 2400,
-  },
-  {
-    name: 'B',
-    pv: 1398,
-  },
-  {
-    name: 'C',
-    pv: 9800,
-  },
-  {
-    name: 'D',
-    pv: 3908,
-  },
-  {
-    name: 'E',
-    pv: 4800,
-  },
-  {
-    name: 'F',
-    pv: 3800,
-  },
-  {
-    name: 'G',
-    pv: 4300,
-  },
-];
+class LineChartView extends PureComponent {
 
-export default class LineChartView extends PureComponent {
+  componentDidMount = () => {
+    console.log(this.props.expenses);
+  }
+
   render() {
     return (
       <div className="bg-white border-transparent rounded-lg shadow-xl">
         <div className="p-5 h-96">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
-            data={data}
+            data={this.props.expenses}
             margin={{
               top: 5,
               right: 30,
@@ -48,16 +23,21 @@ export default class LineChartView extends PureComponent {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="month" padding={{ left: 0 }}/>
+            <YAxis type="number" domain={[0, 100000]}/>
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
+            <Line type="monotone" dataKey="expense" stroke="#ff9800" activeDot={{ r: 8 }} />
           </LineChart>
         </ResponsiveContainer>
         </div>
       </div>
-      
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  expenses: state.expenses,
+})
+
+export default connect(mapStateToProps) (LineChartView);

@@ -86,7 +86,7 @@ function App(props) {
                   charts.length !== 0 ? (
                     charts.sort((a, b) => a.sort - b.sort).map((v, i) => (
                       <div 
-                        className="w-full md:w-1/3 p-6 chart_view" 
+                        className="w-full md:w-1/2 p-6 chart_view" 
                         key={`chart_${i}`}
                         data-sort={v.sort}
                       >{ viewChart(v.value) }</div>

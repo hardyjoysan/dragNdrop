@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.recharts-cartesian-axis-tick-value{
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+.recharts-legend-item-text{
+    text-transform: capitalize;
+}
