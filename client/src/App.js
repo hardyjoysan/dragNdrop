@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Draggable, Droppable } from 'react-drag-and-drop';
+import { connect } from 'react-redux';
 
 // Partails
 import Header from './partials/Header';
@@ -10,7 +11,10 @@ import LineChartView from './components/LineChartView';
 import BarChartView from './components/BarChartView';
 import PieChartView from './components/PieChartView';
 
-function App() {
+// Redux Actions
+import { fetchMonthlyExpenses } from './store/actions';
+
+function App(props) {
 
   const [ charts, setCharts ] = useState([]);
 
@@ -57,6 +61,12 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    if (!props.expenses) {
+      props.onFetchExpenses();
+    }
+  }, [ props ]);
+
   return (
     <div className="font-sans mt-12">
 
@@ -67,7 +77,7 @@ function App() {
         <Sidebar charts={charts} />
 
         {/* Main Area */}
-        <div className="main-content flex-1 pb-24 md:pb-5 w-full">
+        <div className="main-content flex-1 pb-24 md:pb-5 w-full bg-gray-700">
 
           {/* Dropping Container */}
           <Droppable types={['chart']} onDrop={ onDrop } >
@@ -76,7 +86,7 @@ function App() {
                   charts.length !== 0 ? (
                     charts.sort((a, b) => a.sort - b.sort).map((v, i) => (
                       <div 
-                        className="w-full md:w-1/2 p-6 chart_view" 
+                        className="w-full md:w-1/3 p-6 chart_view" 
                         key={`chart_${i}`}
                         data-sort={v.sort}
                       >{ viewChart(v.value) }</div>
@@ -94,4 +104,14 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  expenses: state.expenses,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchExpenses: () => {
+      dispatch(fetchMonthlyExpenses());
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps) (App);
