@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 const initState = {
     expenses: null,
+    categories: null
 }
 
 const reducer = (state = initState, action) => {

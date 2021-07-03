@@ -10,3 +10,17 @@
 .recharts-legend-item-text{
     text-transform: capitalize;
 }
+
+.drop-container{
+    min-height: 92vh;
+}
+
+@media (max-width: 640px) {
+    .drop-container{
+        min-height: 70vh;
+    }
+    .sideicon{
+        width: 64px;
+        height: 64px;
+    }
+}

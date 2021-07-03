@@ -81,7 +81,7 @@ function App(props) {
 
           {/* Dropping Container */}
           <Droppable types={['chart']} onDrop={ onDrop } >
-              <div className="flex flex-row flex-wrap flex-grow mt-2 md:min-h-screen drop-container">
+              <div className="flex flex-row flex-wrap flex-grow mt-2 drop-container">
                 {
                   charts.length !== 0 ? (
                     charts.sort((a, b) => a.sort - b.sort).map((v, i) => (
@@ -92,7 +92,7 @@ function App(props) {
                       >{ viewChart(v.value) }</div>
                     ))
                   ):(
-                    <h1 className="drop_text text-5xl text-gray-500 mx-auto md:mt-48">Drag &amp; Drop Charts Here</h1>
+                    <h1 className="drop_text md:text-5xl text-gray-500 mx-auto md:mt-48 sm:mt-48">Drag &amp; Drop Charts Here</h1>
                   )
                 }
               </div>
