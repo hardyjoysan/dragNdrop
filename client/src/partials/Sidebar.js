@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Draggable } from 'react-drag-and-drop'
-import LineSvg from '../assets/images/line.svg';
-import BarSvg from '../assets/images/bar.svg';
-import PieSvg from '../assets/images/pie.svg';
 
 function Sidebar(props) {
     const [actives, setActives] = useState([]);
@@ -24,40 +21,28 @@ function Sidebar(props) {
                 {
                     !actives.includes('line') ? (
                         <Draggable type="chart" data="line" className="cursor-move flex-col">
-                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 sideicon">
-                                <img src={LineSvg} alt="Line Chart" />
-                            </li>
+                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full sideicon line" onClick={ () => props.clickDraggable('line') }></li>
                         </Draggable>
                     ):(
-                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 opacity-20 cursor-not-allowed sideicon">
-                            <img src={LineSvg} alt="Line Chart" />
-                        </li>
+                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full opacity-20 cursor-not-allowed sideicon line"></li>
                     )
                 }
                 {
                     !actives.includes('bar') ? (
                         <Draggable type="chart" data="bar" className="cursor-move  flex-col">
-                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 sideicon">
-                                <img src={BarSvg} alt="Bar Chart" />
-                            </li>
+                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full sideicon bar" onClick={() => props.clickDraggable('bar')} ></li>
                         </Draggable>
                     ):(
-                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 opacity-20 cursor-not-allowed sideicon">
-                            <img src={BarSvg} alt="Bar Chart" />
-                        </li>
+                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full opacity-20 cursor-not-allowed sideicon bar"></li>
                     )
                 }
                 {
                     !actives.includes('pie') ? (
                         <Draggable type="chart" data="pie" className="cursor-move flex-col">
-                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 sideicon">
-                                <img src={PieSvg} alt="Pie Chart" />
-                            </li>
+                            <li className="block md:py-3 align-middle border-b-2 hover:border-blue-500 border-dashed border-2 border-gray-500 p-2 text-center md:w-full sideicon pie" onClick={() => props.clickDraggable('pie')}></li>
                         </Draggable>
                     ):(
-                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full md:mt-1 opacity-20 cursor-not-allowed sideicon">
-                            <img src={PieSvg} alt="Pie Chart" />
-                        </li>
+                        <li className="block md:py-3 align-middle border-b-2 border-dashed border-2 border-gray-500 p-2 text-center md:w-full opacity-20 cursor-not-allowed sideicon pie"></li>
                     )
                 }
                 

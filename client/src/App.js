@@ -48,6 +48,12 @@ function App(props) {
     setCharts(data);
   }
 
+  const onClickDraggable = (v) => {
+    if (window.innerWidth < 640) {
+      setCharts([...charts, {value: v, sort: charts.length + 1}]);
+    }
+  }
+
   const viewChart = (v) => {
     switch (v) {
       case 'line':
@@ -74,7 +80,7 @@ function App(props) {
 
       <div className="flex flex-col md:flex-row">
 
-        <Sidebar charts={charts} />
+        <Sidebar charts={charts} clickDraggable={ onClickDraggable } />
 
         {/* Main Area */}
         <div className="main-content flex-1 pb-24 md:pb-5 w-full bg-gray-700">

@@ -15,6 +15,23 @@
     min-height: 92vh;
 }
 
+.sideicon{
+    height: 120px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 75%;
+    background-color: #1f2937;
+}
+.sideicon.line{
+    background-image: url('../images/line.svg');
+}
+.sideicon.bar{
+    background-image: url('../images/bar.svg');
+}
+.sideicon.pie{
+    background-image: url('../images/pie.svg');
+}
+
 @media (max-width: 640px) {
     .drop-container{
         min-height: 70vh;
