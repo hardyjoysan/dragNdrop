@@ -1,47 +1,17 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { connect } from 'react-redux';
 
-const data = [
-    {
-      name: 'A',
-      pv: 2400,
-    },
-    {
-      name: 'B',
-      pv: 1398,
-    },
-    {
-      name: 'C',
-      pv: 9800,
-    },
-    {
-      name: 'D',
-      pv: 3908,
-    },
-    {
-      name: 'E',
-      pv: 4800,
-    },
-    {
-      name: 'F',
-      pv: 3800,
-    },
-    {
-      name: 'G',
-      pv: 4300,
-    },
-];
-
-export default class Example extends PureComponent {
+class BarchartView extends PureComponent {
   render() {
     return (
-      <div className="bg-white border-transparent rounded-lg shadow-xl">
+      <div className="bg-white border-transparent rounded-lg shadow-xl cursor-move">
         <div className="p-5 h-96">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             width={500}
             height={300}
-            data={data}
+            data={this.props.expenses}
             margin={{
               top: 5,
               right: 30,
@@ -50,12 +20,12 @@ export default class Example extends PureComponent {
             }}
             barSize={20}
           >
-            <XAxis dataKey="name" scale="point" padding={{ left: 10, right: 10 }} />
-            <YAxis />
+            <XAxis dataKey="month"  />
+            <YAxis type="number" domain={[0, 100000]}/>
             <Tooltip />
             <Legend />
             <CartesianGrid strokeDasharray="3 3" />
-            <Bar dataKey="pv" fill="#8884d8" background={{ fill: '#eee' }} />
+            <Bar dataKey="expense" fill="#fb5a57" background={{ fill: '#eee' }} />
           </BarChart>
         </ResponsiveContainer>
         </div>
@@ -63,3 +33,9 @@ export default class Example extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  expenses: state.expenses,
+})
+
+export default connect(mapStateToProps) (BarchartView);

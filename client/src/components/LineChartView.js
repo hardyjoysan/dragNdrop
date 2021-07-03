@@ -4,13 +4,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 class LineChartView extends PureComponent {
 
-  componentDidMount = () => {
-    console.log(this.props.expenses);
-  }
-
   render() {
     return (
-      <div className="bg-white border-transparent rounded-lg shadow-xl">
+      <div className="bg-white border-transparent rounded-lg shadow-xl cursor-move">
         <div className="p-5 h-96">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
