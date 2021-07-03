@@ -16,7 +16,7 @@ function App() {
 
   const onDrop = (d, e) => {
     let data = charts.filter(v => v.value !== d.chart);
-    if(!e.target.classList.contains('drop-container')){
+    if(!e.target.classList.contains(['drop-container']) && !e.target.classList.contains(['drop_text'])){
       let sort = parseInt(e.target.closest('.chart_view').getAttribute('data-sort'));
       let current = charts.find(v => v.value === d.chart);
       if (data.length > 0) {
@@ -64,23 +64,25 @@ function App() {
 
       <div className="flex flex-col md:flex-row">
 
-        <Sidebar />
+        <Sidebar charts={charts} />
 
         {/* Main Area */}
         <div className="main-content flex-1 pb-24 md:pb-5 w-full">
 
           {/* Dropping Container */}
           <Droppable types={['chart']} onDrop={ onDrop } >
-              <div className="flex flex-row flex-wrap flex-grow mt-2 min-h-screen drop-container">
+              <div className="flex flex-row flex-wrap flex-grow mt-2 md:min-h-screen drop-container">
                 {
-                  charts.length !== 0 && (
+                  charts.length !== 0 ? (
                     charts.sort((a, b) => a.sort - b.sort).map((v, i) => (
                       <div 
-                        className="w-full md:w-1/2 h-full p-6 chart_view" 
+                        className="w-full md:w-1/2 p-6 chart_view" 
                         key={`chart_${i}`}
                         data-sort={v.sort}
                       >{ viewChart(v.value) }</div>
                     ))
+                  ):(
+                    <h1 className="drop_text text-5xl text-gray-500 mx-auto md:mt-48">Drag &amp; Drop Charts Here</h1>
                   )
                 }
               </div>
