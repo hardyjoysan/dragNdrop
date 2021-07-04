@@ -18,7 +18,10 @@ function App(props) {
 
   const [ charts, setCharts ] = useState([]);
 
+  // Draggable element drop event handler
   const onDrop = (d, e) => {
+    
+    // Chart rearrange fuctionality by sorting each
     let data = charts.filter(v => v.value !== d.chart);
     if(!e.target.classList.contains(['drop-container']) && !e.target.classList.contains(['drop_text'])){
       let sort = parseInt(e.target.closest('.chart_view').getAttribute('data-sort'));
@@ -30,44 +33,53 @@ function App(props) {
               return {...element, sort: element.sort - 1 }
             }else if (current.sort > element.sort && element.sort >= sort) {
               return {...element, sort: element.sort + 1 }
-            }else{
-              return element;
             }
           }else{
             if(element.sort >= sort) {
               return {...element, sort: element.sort + 1 }
             }
           }
-          return false;
+          return element;
         });
       }
       data.push({value: d.chart, sort: sort});
     }else{
       data.push({value: d.chart, sort: data.length + 1});
-    }    
+    }
     setCharts(data);
   }
 
+  // Only for small devices; Drag & Drop won't work in mobile device
   const onClickDraggable = (v) => {
     if (window.innerWidth < 640) {
       setCharts([...charts, {value: v, sort: charts.length + 1}]);
     }
   }
 
+  // Close charts
+  const handleCloseChart = (v) => {
+    let i = 0;
+    let data = charts.filter(d => d.value !== v);
+    data = data.map(d => {return {...d, sort: ++i } });
+    setCharts(data);
+  }
+
+  // Render Chart componets switching
   const viewChart = (v) => {
     switch (v) {
       case 'line':
-        return <Draggable type="chart" data="line"><LineChartView /></Draggable>
+        return <Draggable type="chart" data="line"><LineChartView onCloseChart={handleCloseChart} /></Draggable>
       case 'bar':
-        return <Draggable type="chart" data="bar"><BarChartView /></Draggable>
+        return <Draggable type="chart" data="bar"><BarChartView onCloseChart={handleCloseChart} /></Draggable>
         case 'pie':
-      return <Draggable type="chart" data="pie"><PieChartView /></Draggable>
+      return <Draggable type="chart" data="pie"><PieChartView onCloseChart={handleCloseChart} /></Draggable>
       default:
         return false;
     }
   }
 
   useEffect(() => {
+    // Initial data fetching for charts
     if (!props.expenses) {
       props.onFetchExpenses();
     }
@@ -98,7 +110,12 @@ function App(props) {
                       >{ viewChart(v.value) }</div>
                     ))
                   ):(
-                    <h1 className="drop_text md:text-5xl text-gray-500 mx-auto md:mt-48 sm:mt-48">Drag &amp; Drop Charts Here</h1>
+                    // Text information for small screen devices
+                    window.innerWidth > 640 ? (
+                      <h1 className="drop_text md:text-5xl text-gray-500 mx-auto md:mt-48">Drag &amp; Drop Charts Here</h1>
+                    ):(
+                      <h1 className="drop_text text-xl text-gray-500 mx-auto mt-32">Click on icons to display charts</h1>
+                    )
                   )
                 }
               </div>
@@ -110,10 +127,12 @@ function App(props) {
   );
 }
 
+// Map redux state to props
 const mapStateToProps = (state) => ({
   expenses: state.expenses,
 })
 
+// Map redux actions to props
 const mapDispatchToProps = (dispatch) => ({
   onFetchExpenses: () => {
       dispatch(fetchMonthlyExpenses());

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 class BarchartView extends PureComponent {
   render() {
     return (
-      <div className="bg-white border-transparent rounded-lg shadow-xl cursor-move">
+      <div className="bg-white border-transparent rounded-lg shadow-xl overflow-hidden cursor-move">
+        <span className="block text-center font-extrabold border-2 pt-0 border-gray-200 rounded h-8 w-8 float-right text-red-500 -mt-1 -mr-1 cursor-pointer" title="Close" onClick={() => this.props.onCloseChart('bar')}>x</span>
         <div className="p-5 h-96">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart

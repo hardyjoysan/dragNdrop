@@ -6,6 +6,7 @@ module.exports = {
     getMonthlyExpenses: async function(req, res, next) {
         try {
 
+            // Fetch expenses from database
             const result = await Expense.findAll({
                 attributes: [
                     'month',
@@ -14,6 +15,7 @@ module.exports = {
                 group: ['month'],
             });
 
+            // Altering month name for front end visibility
             let response = result.map(data => {
                 let dataValues = data.dataValues;
                 return { month: dataValues.month.substr(0, 3), expense: dataValues.total }
@@ -22,23 +24,6 @@ module.exports = {
             res.send({
                 data: response,
                 message: 'success',
-                status: 200
-            });
-            
-        } catch (error) {
-            console.log(error);
-            res.send({
-                message: "Oops! Something went wrong.",
-                status: 500
-            });
-        }
-    },
-
-    getCategoryExpenses: function(req, res, next) {
-        try {
-
-            res.send({
-                data: { user: 'test' },
                 status: 200
             });
             

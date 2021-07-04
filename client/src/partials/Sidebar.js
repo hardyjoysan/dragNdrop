@@ -10,6 +10,8 @@ function Sidebar(props) {
                 return v.value;
             });
             setActives(drags);
+        }else{
+            setActives([]);
         }
     }, [ props.charts ]);
 
