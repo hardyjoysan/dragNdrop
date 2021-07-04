@@ -41,7 +41,7 @@ $ sequelize db:seed:all
 $ npm run dev
 ```
 
-Open [localhost:300](http://localhost:3000) in browser.
+Open [localhost:3000](http://localhost:3000) in browser.
 
 ### Production
 
